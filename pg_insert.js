@@ -5,7 +5,7 @@ const client = new Client({
   host: "localhost",
   database: "mqtt-json",
   password: "raptortechAreCool1!",
-  port: 5433,
+  port: 5432,
 });
 function timestampToDateTimePlus30YearsInSeconds(timestamp) {
   // Create a Date object from the timestamp
