@@ -7,7 +7,7 @@ const client = new Client({
   password: "raptortechAreCool1!",
   port: 5432,
 });
-function timestampToDateTimePlus30YearsInSeconds(timestamp) {
+function timestampToDateTimePlus30Years(timestamp) {
   // Create a Date object from the timestamp
   const date = new Date(timestamp);
 
@@ -30,17 +30,19 @@ client
   });
 
 // 定义插入数据函数
-const insertData = async (data) => {
+const insertDataRDN = async (data) => {
   try {
     const insertQuery = `
-      INSERT INTO MQTTJSON (time, data, device_id) VALUES ($1, $2, $3)
+      INSERT INTO MQTTRDN (time, key,value, device_id) VALUES ($1, $2, $3,$4)
     `;
-    const time = timestampToDateTimePlus30YearsInSeconds(data.ts*1000);
-    await client.query(insertQuery, [time, data, data.id]);
+    const time = timestampToDateTimePlus30Years(data.ts*1000);
+    for (const [key, value] of Object.entries(data)) {
+        await client.query(insertQuery, [time, key,value, data.id]);
+    }
     console.log("Data inserted successfully");
   } catch (error) {
     console.error("Could not insert data", error);
   }
 };
 
-module.exports = insertData;
+module.exports = insertDataRDN;

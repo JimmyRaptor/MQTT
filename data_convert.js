@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const { Readable } = require("stream");
 const insertData = require("./pg_insert");
+const insertDataRDN = require("./pg_insert_rdn");
 
 const mqttUrl = "mqtt:35.247.9.156";
 const options = {
@@ -52,8 +53,8 @@ async function handleMessage_encode(topic, message) {
       const newData = Object.fromEntries(data)
       //console.log(newData)
       newData.id = topic.split("/")[3];
-      await insertData(newData);
-      
+      //await insertData(newData);
+      await insertDataRDN(newData);
       //const jsonData = JSON.stringify(newData);
       // 将解析后的数据转换为 JSON 字符串
       //const jsonData = JSON.stringify(Object.fromEntries(data));
