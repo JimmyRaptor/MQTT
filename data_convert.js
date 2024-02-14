@@ -53,7 +53,7 @@ async function handleMessage_encode(topic, message) {
       const newData = Object.fromEntries(data)
       //console.log(newData)
       newData.id = topic.split("/")[3];
-      //await insertData(newData);
+      await insertData(newData);
       await insertDataRDN(newData);
       //const jsonData = JSON.stringify(newData);
       // 将解析后的数据转换为 JSON 字符串
