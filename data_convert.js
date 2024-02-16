@@ -6,15 +6,11 @@ const { Readable } = require("stream");
 const insertData = require("./pg_insert");
 const insertDataRDN = require("./pg_insert_rdn");
 
-const mqttUrl = "mqtt:35.247.9.156";
-const options = {
-  username: "test",
-  password: "test",
-};
+const mqttUrl = "mqtt:10.152.0.8";
 
 async function connectAndSubscribeToMQTT() {
   return new Promise((resolve, reject) => {
-    const client = mqtt.connect(mqttUrl, options);
+    const client = mqtt.connect(mqttUrl);
 
     client.on("connect", () => {
       console.log("Connected to MQTT Broker");
