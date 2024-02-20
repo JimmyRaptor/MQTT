@@ -10,15 +10,16 @@ const client = new Client({
 function timestampToDateTimePlus30Years(timestamp) {
   // Create a Date object from the timestamp
   const date = new Date(timestamp);
-
-  // Add 30 years to the date
-  date.setFullYear(date.getFullYear() + 30);
-  console.log(date.getTime())
-  console.log(date.toISOString())
+  //check if the data is less than 30 years
+  if (date.getFullYear() < 2024) {
+    // Add 30 years to the date
+    date.setFullYear(date.getFullYear() + 30);
+    console.log(date.getTime());
+    console.log(date.toISOString());
+  }
   // Return the new timestamp in seconds
   return date.toISOString();
 }
-
 
 client
   .connect()
@@ -35,9 +36,9 @@ const insertDataRDN = async (data) => {
     const insertQuery = `
       INSERT INTO MQTTRDN (time, key,value, device_id) VALUES ($1, $2, $3,$4)
     `;
-    const time = timestampToDateTimePlus30Years(data.ts*1000);
+    const time = timestampToDateTimePlus30Years(data.ts * 1000);
     for (const [key, value] of Object.entries(data)) {
-        await client.query(insertQuery, [time, key,value, data.id]);
+      await client.query(insertQuery, [time, key, value, data.id]);
     }
     console.log("Data inserted successfully");
   } catch (error) {
