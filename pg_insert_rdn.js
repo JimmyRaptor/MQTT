@@ -11,11 +11,15 @@ function timestampToDateTimePlus30Years(timestamp) {
   // Create a Date object from the timestamp
   const date = new Date(timestamp);
   //check if the data is less than 30 years
-  if (date.getFullYear() < 2024) {
+  if (date.getFullYear() < 1995) {
     // Add 30 years to the date
     date.setFullYear(date.getFullYear() + 30);
     console.log(date.getTime());
     console.log(date.toISOString());
+  } else if (date.getFullYear() < 2024) {
+    const nowUTC = new Date(Date.now());
+    date.setUTCFullYear(nowUTC.getUTCFullYear(), nowUTC.getUTCMonth(), nowUTC.getUTCDate());
+    date.setUTCHours(nowUTC.getUTCHours(), nowUTC.getUTCMinutes(), nowUTC.getUTCSeconds(), nowUTC.getUTCMilliseconds());
   }
   // Return the new timestamp in seconds
   return date.toISOString();
