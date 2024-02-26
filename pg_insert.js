@@ -32,7 +32,7 @@ client
 const insertData = async (data) => {
   try {
     const insertQuery = `
-      INSERT INTO MQTTJSON (time, data, device_id) VALUES ($1, $2, $3)
+      INSERT INTO MQTTJSON (time, data, MAC) VALUES ($1, $2, $3)
     `;
     const time = timestampToDateTimePlus30YearsInSeconds(data.ts * 1000);
      await client.query(insertQuery, [time, data, data.id]);
